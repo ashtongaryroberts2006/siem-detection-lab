@@ -30,7 +30,7 @@ traffic against Windows-Target over SMB (445) and other protocols.
 
 
 
-!\[SIEM lab network architecture](screenshots/architecture-diagram.png)
+![SIEM lab network architecture](screenshots/architecture-diagram.png)
 
 
 
@@ -384,7 +384,7 @@ Each detection is saved as a scheduled alert running on a 5-minute cron (`\*/5 \
 
 `ip a` output showing the interface with a valid IP address assigned.
 
-!\[Working ip a output](screenshots/01-ip-config.png)
+![Working ip a output](screenshots/01-ip-config.png)
 
 
 
@@ -392,9 +392,9 @@ Each detection is saved as a scheduled alert running on a 5-minute cron (`\*/5 \
 
 Both the Adapter tab and DHCP Server tab, showing the working configuration.
 
-!\[VirtualBox Adapter settings](screenshots/02a-vbox-adapter.png)
+![VirtualBox Adapter settings](screenshots/02a-vbox-adapter.png)
 
-!\[VirtualBox DHCP Server settings](screenshots/02b-vbox-dhcp.png)
+![VirtualBox DHCP Server settings](screenshots/02b-vbox-dhcp.png)
 
 
 
@@ -402,7 +402,7 @@ Both the Adapter tab and DHCP Server tab, showing the working configuration.
 
 Successful SSH login from the Windows host terminal.
 
-!\[SSH login to Splunk server](screenshots/03-ssh-login.png)
+![SSH login to Splunk server](screenshots/03-ssh-login.png)
 
 
 
@@ -410,7 +410,7 @@ Successful SSH login from the Windows host terminal.
 
 `dpkg -i` output showing the install finishing successfully.
 
-!\[Splunk install complete](screenshots/04-splunk-install.png)
+![Splunk install complete](screenshots/04-splunk-install.png)
 
 
 
@@ -418,7 +418,7 @@ Successful SSH login from the Windows host terminal.
 
 `splunk status` output confirming `splunkd is running`.
 
-!\[Splunk status running](screenshots/05-splunk-status.png)
+![Splunk status running](screenshots/05-splunk-status.png)
 
 
 
@@ -426,7 +426,7 @@ Successful SSH login from the Windows host terminal.
 
 Browser showing the Splunk home screen at `192.168.116.3:8000`.
 
-!\[Splunk web home page](screenshots/06-splunk-web-home.png)
+![Splunk web home page](screenshots/06-splunk-web-home.png)
 
 
 
@@ -434,7 +434,7 @@ Browser showing the Splunk home screen at `192.168.116.3:8000`.
 
 Settings > Forwarding and receiving > Configure receiving, showing port 9997 added.
 
-!\[Splunk receiving port configured](screenshots/07-splunk-port-configured.png)
+![Splunk receiving port configured](screenshots/07-splunk-port-configured.png)
 
 
 
@@ -442,7 +442,7 @@ Settings > Forwarding and receiving > Configure receiving, showing port 9997 add
 
 VM Settings > Network tab showing Host-only Adapter attached to the same network as the Splunk server.
 
-!\[Windows-Target network configuration](screenshots/08-windows-network-configuration.png)
+![Windows-Target network configuration](screenshots/08-windows-network-configuration.png)
 
 
 
@@ -450,7 +450,7 @@ VM Settings > Network tab showing Host-only Adapter attached to the same network
 
 Working Windows 10 desktop inside the VM after install completes.
 
-!\[Windows-Target desktop confirmed](screenshots/09-windows-desktop-confirmed.png)
+![Windows-Target desktop confirmed](screenshots/09-windows-desktop-confirmed.png)
 
 
 
@@ -458,7 +458,7 @@ Working Windows 10 desktop inside the VM after install completes.
 
 `ipconfig` output in Command Prompt showing the assigned IP address.
 
-!\[Windows-Target IP address](screenshots/10-windows-IP-address.png)
+![Windows-Target IP address](screenshots/10-windows-IP-address.png)
 
 
 
@@ -466,7 +466,7 @@ Working Windows 10 desktop inside the VM after install completes.
 
 Command Prompt output showing "Sysmon installed" and "Sysmon started" after running the install command.
 
-!\[Sysmon installation confirmed](screenshots/11-Sysmon-installation-confirmed.png)
+![Sysmon installation confirmed](screenshots/11-Sysmon-installation-confirmed.png)
 
 
 
@@ -474,7 +474,7 @@ Command Prompt output showing "Sysmon installed" and "Sysmon started" after runn
 
 Windows Event Viewer showing Sysmon Operational log with events present.
 
-!\[Sysmon events in Event Viewer](screenshots/12-sysmon-events.png)
+![Sysmon events in Event Viewer](screenshots/12-sysmon-events.png)
 
 
 
@@ -482,7 +482,7 @@ Windows Event Viewer showing Sysmon Operational log with events present.
 
 `index=main` search in Splunk showing live data flowing in from the Windows target. This is the key "it's working end-to-end" screenshot.
 
-!\[Splunk index search showing ingested logs](screenshots/13-log-ingestion.png)
+![Splunk index search showing ingested logs](screenshots/13-log-ingestion.png)
 
 
 
@@ -490,7 +490,7 @@ Windows Event Viewer showing Sysmon Operational log with events present.
 
 Kali desktop loaded with `ip a` output showing it's on the same lab network.
 
-!\[Kali-Attacker VM Confirmed](screenshots/14-kali-confirmed.png)
+![Kali-Attacker VM Confirmed](screenshots/14-kali-confirmed.png)
 
 
 
@@ -498,7 +498,7 @@ Kali desktop loaded with `ip a` output showing it's on the same lab network.
 
 Ping results from Kali to both the Splunk server and Windows-Target, confirming all three VMs can reach each other.
 
-!\[Full lab connectivity confirmed](screenshots/15-connectivity-confirmed.png)
+![Full lab connectivity confirmed](screenshots/15-connectivity-confirmed.png)
 
 
 
@@ -508,15 +508,15 @@ One screenshot per detection (5 total) showing the saved alert in Splunk in edit
 
 
 
-!\[Detection alert - failed logons](screenshots/16a-alert-failed-logons.png)
+![Detection alert - failed logons](screenshots/16a-alert-failed-logons.png)
 
-!\[Detection alert - encoded PowerShell](screenshots/16b-alert-powershell.png)
+![Detection alert - encoded PowerShell](screenshots/16b-alert-powershell.png)
 
-!\[Detection alert - scheduled task persistence](screenshots/16c-alert-persistence.png)
+![Detection alert - scheduled task persistence](screenshots/16c-alert-persistence.png)
 
-!\[Detection alert - suspicious process spawn](screenshots/16d-alert-process-spawn.png)
+![Detection alert - suspicious process spawn](screenshots/16d-alert-process-spawn.png)
 
-!\[Detection alert - lateral movement](screenshots/16e-alert-lateral-movement.png)
+![Detection alert - lateral movement](screenshots/16e-alert-lateral-movement.png)
 
 
 
@@ -528,7 +528,7 @@ Each detection runs on a 5-minute cron (`\*/5 \* \* \* \*`) against a `-5m@m` to
 
 Activity > Triggered Alerts, showing recorded firings across the five detections — evidence that the alerts have actually triggered on live events, not just that they exist.
 
-!\[Triggered alerts history](screenshots/16f-triggered-alerts.png)
+![Triggered alerts history](screenshots/16f-triggered-alerts.png)
 
 
 
@@ -546,9 +546,9 @@ Attack traffic was generated from the Kali host (`192.168.116.6`) for network-ba
 
 Six failed SMB authentications against the `Ashton` account (`STATUS\_LOGON\_FAILURE`), generating EventCode 4625.
 
-!\[Attack - failed logons](screenshots/17a-attack-failed-logons.png)
+![Attack - failed logons](screenshots/17a-attack-failed-logons.png)
 
-!\[Detection - failed logons](screenshots/17a-detection-failed-logons.png)
+![Detection - failed logons](screenshots/17a-detection-failed-logons.png)
 
 
 
@@ -556,9 +556,9 @@ Six failed SMB authentications against the `Ashton` account (`STATUS\_LOGON\_FAI
 
 Execution of a base64 `-EncodedCommand`, the pattern flagged regardless of payload.
 
-!\[Attack - encoded PowerShell](screenshots/17b-attack-powershell.png)
+![Attack - encoded PowerShell](screenshots/17b-attack-powershell.png)
 
-!\[Detection - encoded PowerShell](screenshots/17b-detection-powershell.png)
+![Detection - encoded PowerShell](screenshots/17b-detection-powershell.png)
 
 
 
@@ -566,9 +566,9 @@ Execution of a base64 `-EncodedCommand`, the pattern flagged regardless of paylo
 
 Creation of a scheduled task (`schtasks /create`).
 
-!\[Attack - persistence](screenshots/17c-attack-persistence.png)
+![Attack - persistence](screenshots/17c-attack-persistence.png)
 
-!\[Detection - persistence](screenshots/17c-detection-persistence.png)
+![Detection - persistence](screenshots/17c-detection-persistence.png)
 
 
 
@@ -576,9 +576,9 @@ Creation of a scheduled task (`schtasks /create`).
 
 A `cmd.exe → powershell.exe` parent-child process chain captured via Sysmon Event ID 1.
 
-!\[Attack - process spawn](screenshots/17d-attack-process-spawn.png)
+![Attack - process spawn](screenshots/17d-attack-process-spawn.png)
 
-!\[Detection - process spawn](screenshots/17d-detection-process-spawn.png)
+![Detection - process spawn](screenshots/17d-detection-process-spawn.png)
 
 
 
@@ -586,9 +586,9 @@ A `cmd.exe → powershell.exe` parent-child process chain captured via Sysmon Ev
 
 Access to administrative shares (`C$`, `ADMIN$`) over SMB from Kali, generating EventCode 5140.
 
-!\[Attack - lateral movement](screenshots/17e-attack-lateral-movement.png)
+![Attack - lateral movement](screenshots/17e-attack-lateral-movement.png)
 
-!\[Detection - lateral movement](screenshots/17e-detection-lateral-movement.png)
+![Detection - lateral movement](screenshots/17e-detection-lateral-movement.png)
 
 
 
@@ -598,11 +598,11 @@ Splunk "SOC Detection Overview" dashboard summarising activity across all five d
 
 
 
-!\[Dashboard - alert firing counts by detection](screenshots/18a-dashboard-alert-counts.png)
+![Dashboard - alert firing counts by detection](screenshots/18a-dashboard-alert-counts.png)
 
-!\[Dashboard - recent triggered alerts table](screenshots/18b-dashboard-triggered-table.png)
+![Dashboard - recent triggered alerts table](screenshots/18b-dashboard-triggered-table.png)
 
-!\[Dashboard - failed logons by logon type](screenshots/18c-dashboard-logon-types.png)
+![Dashboard - failed logons by logon type](screenshots/18c-dashboard-logon-types.png)
 
 
 
