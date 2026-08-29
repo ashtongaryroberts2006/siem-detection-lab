@@ -268,13 +268,13 @@ traffic against Windows-Target over SMB (445) and other protocols.
 
 
 
-| Detection | MITRE ATT&CK ID | Splunk Query | Status |
-|-----------|-----------------|--------------|--------|
-| Repeated failed logons | T1110 | `index=main EventCode=4625 Account_Name=* \| stats count by Account_Name \| where count > 5` | Built · Tested · Alert saved |
-| Suspicious PowerShell (encoded command) | T1059.001 | `index=main CommandLine="*EncodedCommand*"` | Built · Tested · Alert saved |
-| Persistence via scheduled task | T1053.005 | `index=main EventCode=4698` | Built · Tested · Alert saved |
-| Suspicious process spawn (cmd → PowerShell) | T1059 | `index=main EventCode=1 ParentImage="*cmd.exe*" Image="*powershell.exe*"` | Built · Tested · Alert saved |
-| Lateral movement (SMB admin share access) | T1021.002 | `index=main EventCode=5140 (Share_Name="*ADMIN$*" OR Share_Name="*C$*")` | Built · Tested · Alert saved |
+| Detection | MITRE ATT&CK ID | Data Source | Splunk Query |
+|-----------|-----------------|-------------|--------------|
+| Repeated failed logons | T1110 | Security (4625) | `index=main EventCode=4625 Account_Name=* \| stats count by Account_Name \| where count > 5` |
+| Suspicious PowerShell (encoded command) | T1059.001 | Sysmon (EID 1) | `index=main CommandLine="*EncodedCommand*"` |
+| Persistence via scheduled task | T1053.005 | Security (4698) | `index=main EventCode=4698` |
+| Suspicious process spawn (cmd → PowerShell) | T1059 | Sysmon (EID 1) | `index=main EventCode=1 ParentImage="*cmd.exe*" Image="*powershell.exe*"` |
+| Lateral movement (SMB admin share access) | T1021.002 | Security (5140) | `index=main EventCode=5140 (Share_Name="*ADMIN$*" OR Share_Name="*C$*")` |
 
 
 
