@@ -408,7 +408,7 @@ Successful SSH login from the Windows host terminal.
 
 ###### \### 4. Splunk package installation complete 
 
-`dpkg -i` output showing the install finishing successfully.
+`dpkg -l | grep splunk` output showing the install finishing successfully.
 
 ![Splunk install complete](screenshots/04-splunk-install.png)
 
@@ -416,7 +416,7 @@ Successful SSH login from the Windows host terminal.
 
 ###### \### 5. Splunk service running 
 
-`splunk status` output confirming `splunkd is running`.
+`ps aux | grep splunkd` confirming the splunkd process is running.
 
 ![Splunk status running](screenshots/05-splunk-status.png)
 
@@ -544,7 +544,7 @@ Attack traffic was generated from the Kali host (`192.168.116.6`) for network-ba
 
 \*\*17a. Repeated Failed Logons\*\* — `T1110` Brute Force
 
-Six failed SMB authentications against the `Ashton` account (`STATUS\_LOGON\_FAILURE`), generating EventCode 4625.
+Seven failed SMB authentications against the `Ashton` account (`STATUS\_LOGON\_FAILURE`), generating EventCode 4625.
 
 ![Attack - failed logons](screenshots/17a-attack-failed-logons.png)
 
