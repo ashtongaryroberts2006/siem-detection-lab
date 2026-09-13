@@ -12,6 +12,28 @@ Built: 29/07/2026 – 22/08/2026
 
 
 
+## What This Project Demonstrates
+
+This lab covers the full detection engineering lifecycle end to end: standing
+up a log pipeline from Windows endpoints into a Splunk SIEM, writing detections
+and mapping them to MITRE ATT&CK, validating each one against a simulated
+attack, and reasoning about false positives, tuning, and how an attacker might
+evade each control. The build log documents the real troubleshooting involved —
+forwarder permissions, event-channel ACLs, audit-policy configuration, and
+alert logic — rather than presenting only the finished result.
+
+
+
+## Skills Demonstrated
+
+**SIEM & detection:** Splunk · SPL (search, `stats`, `where`) · scheduled alerts, cron scheduling, throttling · detection tuning and false-positive reasoning
+**Frameworks:** MITRE ATT&CK technique mapping across the attack lifecycle
+**Telemetry:** Windows Security Event Logs · Sysmon (SwiftOnSecurity config) · Windows audit policy (`auditpol`) · Splunk Universal Forwarder
+**Attack simulation:** netexec (SMB), PowerShell, scheduled tasks, process-lineage abuse
+**Systems & infrastructure:** VirtualBox lab networking · Ubuntu Server · Linux service/permission troubleshooting · isolated/air-gapped network design
+
+
+
 ##### \## Architecture
 
 
