@@ -282,6 +282,29 @@ Each detection is saved as a scheduled alert running on a 5-minute cron (`\*/5 \
 
 
 
+### Detection Coverage Across the Attack Lifecycle
+
+The five detections were chosen deliberately to span different stages of the
+attack lifecycle rather than clustering around a single tactic. Mapping them
+to MITRE ATT&CK tactics:
+
+| Tactic | Technique | Detection |
+|--------|-----------|-----------|
+| Credential Access | T1110 — Brute Force | Repeated failed logons |
+| Execution | T1059.001 — PowerShell | Encoded-command PowerShell |
+| Persistence | T1053.005 — Scheduled Task | Scheduled task creation |
+| Execution / Defense Evasion | T1059 — Command & Scripting Interpreter | cmd → PowerShell process lineage |
+| Lateral Movement | T1021.002 — SMB Admin Shares | Admin-share access over SMB |
+
+This spread means the lab detects an intrusion at multiple points rather than
+only at one — an attacker guessing credentials, executing obfuscated commands,
+establishing persistence, and moving toward other hosts each trip a different
+detection. Covering several tactics reflects how a real SOC layers detection
+across the kill chain, so that evading one control still leaves an attacker
+visible at another stage.
+
+
+
 ##### \## Incident Reports
 
 
