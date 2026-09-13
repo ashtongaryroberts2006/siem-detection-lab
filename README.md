@@ -216,63 +216,78 @@ Each detection is saved as a scheduled alert running on a 5-minute cron (`*/5 * 
 
 ### 1. Working network configuration
 `ip a` output showing the interface with a valid IP address assigned.
+
 ![Working ip a output](screenshots/01-ip-config.png)
 
 ### 2. VirtualBox Host-Only Network settings
 Both the Adapter tab and DHCP Server tab, showing the working configuration.
+
 ![VirtualBox Adapter settings](screenshots/02a-vbox-adapter.png)
 ![VirtualBox DHCP Server settings](screenshots/02b-vbox-dhcp.png)
 
 ### 3. SSH connection into the VM
 Successful SSH login from the Windows host terminal.
+
 ![SSH login to Splunk server](screenshots/03-ssh-login.png)
 
 ### 4. Splunk package installation complete
 `dpkg -l | grep splunk` output confirming the Splunk package is installed (version 10.4.1).
+
 ![Splunk install complete](screenshots/04-splunk-install.png)
 
 ### 5. Splunk service running
 `ps aux | grep splunkd` confirming the splunkd process is running.
+
 ![Splunk status running](screenshots/05-splunk-status.png)
 
 ### 6. Splunk web home page
 Browser showing the Splunk home screen at `192.168.116.3:8000`.
+
 ![Splunk web home page](screenshots/06-splunk-web-home.png)
 
 ### 7. Splunk receiving port configured
 Settings > Forwarding and receiving > Configure receiving, showing port 9997 added.
+
 ![Splunk receiving port configured](screenshots/07-splunk-port-configured.png)
 
 ### 8. Windows-Target network configuration
 VM Settings > Network tab showing Host-only Adapter attached to the same network as the Splunk server.
+
 ![Windows-Target network configuration](screenshots/08-windows-network-configuration.png)
 
 ### 9. Windows-Target desktop confirmed
 Working Windows 10 desktop inside the VM after install completes.
+
 ![Windows-Target desktop confirmed](screenshots/09-windows-desktop-confirmed.png)
 
 ### 10. Windows-Target IP address
 `ipconfig` output in Command Prompt showing the assigned IP address.
+
 ![Windows-Target IP address](screenshots/10-windows-IP-address.png)
 
 ### 11. Sysmon installation confirmed
 Command Prompt output showing "Sysmon installed" and "Sysmon started" after running the install command.
+
 ![Sysmon installation confirmed](screenshots/11-Sysmon-installation-confirmed.png)
 
 ### 12. Sysmon logging confirmed
 Windows Event Viewer showing Sysmon Operational log with events present.
+
 ![Sysmon events in Event Viewer](screenshots/12-sysmon-events.png)
 
 ### 13. First successful log ingestion
 `index=main` search in Splunk showing live data flowing in from the Windows target. This is the key "it's working end-to-end" screenshot.
+
 ![Splunk index search showing ingested logs](screenshots/13-log-ingestion.png)
 
 ### 14. Kali-Attacker VM confirmed
 Kali desktop loaded with `ip a` output showing it's on the same lab network.
+
 ![Kali-Attacker VM Confirmed](screenshots/14-kali-confirmed.png)
 
 ### 15. Full lab connectivity confirmed
 Ping results from Kali to both the Splunk server and Windows-Target, confirming all three VMs can reach each other.
+
 ![Full lab connectivity confirmed](screenshots/15-connectivity-confirmed.png)
 
 ### 16. Saved detection alerts (configuration)
@@ -288,6 +303,7 @@ Each detection runs on a 5-minute cron (`*/5 * * * *`) against a `-5m@m` to `@m`
 
 **16f. Fired-event history**
 Activity > Triggered Alerts, showing recorded firings across the five detections — evidence that the alerts have actually triggered on live events, not just that they exist.
+
 ![Triggered alerts history](screenshots/16f-triggered-alerts.png)
 
 ### 17. Detection validation (attack → detection)
@@ -297,26 +313,31 @@ Attack traffic was generated from the Kali host (`192.168.116.6`) for network-ba
 
 **17a. Repeated Failed Logons** — `T1110` Brute Force
 Seven failed SMB authentications against the `Ashton` account (`STATUS_LOGON_FAILURE`), generating EventCode 4625.
+
 ![Attack - failed logons](screenshots/17a-attack-failed-logons.png)
 ![Detection - failed logons](screenshots/17a-detection-failed-logons.png)
 
 **17b. Suspicious PowerShell - Encoded Command** — `T1059.001` PowerShell
 Execution of a base64 `-EncodedCommand`, the pattern flagged regardless of payload.
+
 ![Attack - encoded PowerShell](screenshots/17b-attack-powershell.png)
 ![Detection - encoded PowerShell](screenshots/17b-detection-powershell.png)
 
 **17c. Persistence via Scheduled Task** — `T1053.005` Scheduled Task
 Creation of a scheduled task (`schtasks /create`).
+
 ![Attack - persistence](screenshots/17c-attack-persistence.png)
 ![Detection - persistence](screenshots/17c-detection-persistence.png)
 
 **17d. Suspicious Process Spawn** — `T1059` Command and Scripting Interpreter
 A `cmd.exe → powershell.exe` parent-child process chain captured via Sysmon Event ID 1.
+
 ![Attack - process spawn](screenshots/17d-attack-process-spawn.png)
 ![Detection - process spawn](screenshots/17d-detection-process-spawn.png)
 
 **17e. Lateral Movement - SMB Admin Share Access** — `T1021.002` SMB/Windows Admin Shares
 Access to administrative shares (`C$`, `ADMIN$`) over SMB from Kali, generating EventCode 5140.
+
 ![Attack - lateral movement](screenshots/17e-attack-lateral-movement.png)
 ![Detection - lateral movement](screenshots/17e-detection-lateral-movement.png)
 
