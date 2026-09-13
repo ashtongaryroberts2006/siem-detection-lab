@@ -12,6 +12,22 @@ Built: 29/07/2026 – 22/08/2026
 
 
 
+## Contents
+
+- [What This Project Demonstrates](#what-this-project-demonstrates)
+- [Skills Demonstrated](#skills-demonstrated)
+- [Architecture](#architecture)
+- [Build Log](#build-log)
+- [Detection Coverage Across the Attack Lifecycle](#detection-coverage-across-the-attack-lifecycle)
+- [Detections Built](#detections-built)
+- [Incident Reports](#incident-reports)
+- [Screenshots](#screenshots)
+- [What I'd Add With More Time](#what-id-add-with-more-time)
+- [Tools Used](#tools-used)
+- [Resources Used](#resources-used)
+
+
+
 ## What This Project Demonstrates
 
 This lab covers the full detection engineering lifecycle end to end: standing
