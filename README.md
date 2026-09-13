@@ -264,29 +264,11 @@ traffic against Windows-Target over SMB (445) and other protocols.
 
 
 
-##### \## Detections Built
+## Detection Coverage Across the Attack Lifecycle
 
-
-
-| Detection | MITRE ATT&CK ID | Data Source | Splunk Query |
-|-----------|-----------------|-------------|--------------|
-| Repeated failed logons | T1110 | Security (4625) | `index=main EventCode=4625 Account_Name=* \| stats count by Account_Name \| where count > 5` |
-| Suspicious PowerShell (encoded command) | T1059.001 | Sysmon (EID 1) | `index=main CommandLine="*EncodedCommand*"` |
-| Persistence via scheduled task | T1053.005 | Security (4698) | `index=main EventCode=4698` |
-| Suspicious process spawn (cmd → PowerShell) | T1059 | Sysmon (EID 1) | `index=main EventCode=1 ParentImage="*cmd.exe*" Image="*powershell.exe*"` |
-| Lateral movement (SMB admin share access) | T1021.002 | Security (5140) | `index=main EventCode=5140 (Share_Name="*ADMIN$*" OR Share_Name="*C$*")` |
-
-
-
-Each detection is saved as a scheduled alert running on a 5-minute cron (`\*/5 \* \* \* \*`) against a `-5m@m` to `@m` window, with a 60-minute throttle to prevent the same events re-alerting on every run. Each alert's Description field carries its MITRE ATT\&CK ID and a one-line purpose so the alert is self-documenting in the Splunk UI.
-
-
-
-### Detection Coverage Across the Attack Lifecycle
-
-The five detections were chosen deliberately to span different stages of the
-attack lifecycle rather than clustering around a single tactic. Mapping them
-to MITRE ATT&CK tactics:
+The detections were chosen deliberately to span different stages of the attack
+lifecycle rather than clustering around a single tactic. Mapping them to MITRE
+ATT&CK tactics:
 
 | Tactic | Technique | Detection |
 |--------|-----------|-----------|
@@ -298,10 +280,22 @@ to MITRE ATT&CK tactics:
 
 This spread means the lab detects an intrusion at multiple points rather than
 only at one — an attacker guessing credentials, executing obfuscated commands,
-establishing persistence, and moving toward other hosts each trip a different
+establishing persistence, and moving toward other hosts each trips a different
 detection. Covering several tactics reflects how a real SOC layers detection
 across the kill chain, so that evading one control still leaves an attacker
 visible at another stage.
+
+## Detections Built
+
+| Detection | MITRE ATT&CK ID | Data Source | Splunk Query |
+|-----------|-----------------|-------------|--------------|
+| Repeated failed logons | T1110 | Security (4625) | `index=main EventCode=4625 Account_Name=* \| stats count by Account_Name \| where count > 5` |
+| Suspicious PowerShell (encoded command) | T1059.001 | Sysmon (EID 1) | `index=main CommandLine="*EncodedCommand*"` |
+| Persistence via scheduled task | T1053.005 | Security (4698) | `index=main EventCode=4698` |
+| Suspicious process spawn (cmd → PowerShell) | T1059 | Sysmon (EID 1) | `index=main EventCode=1 ParentImage="*cmd.exe*" Image="*powershell.exe*"` |
+| Lateral movement (SMB admin share access) | T1021.002 | Security (5140) | `index=main EventCode=5140 (Share_Name="*ADMIN$*" OR Share_Name="*C$*")` |
+
+Each detection is saved as a scheduled alert running on a 5-minute cron (`*/5 * * * *`) against a `-5m@m` to `@m` window, with a 60-minute throttle to prevent the same events re-alerting on every run. Each alert's Description field carries its MITRE ATT&CK ID and a one-line purpose so the alert is self-documenting in the Splunk UI.
 
 
 
