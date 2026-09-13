@@ -50,7 +50,7 @@ alert logic — rather than presenting only the finished result.
 
 
 
-##### \## Architecture
+## Architecture
 
 
 
@@ -82,7 +82,7 @@ traffic against Windows-Target over SMB (445) and other protocols.
 
 
 
-##### \## Build Log
+## Build Log
 
 
 
@@ -337,7 +337,7 @@ Each detection is saved as a scheduled alert running on a 5-minute cron (`*/5 * 
 
 
 
-##### \## Incident Reports
+## Incident Reports
 
 
 
@@ -431,7 +431,7 @@ Each detection is saved as a scheduled alert running on a 5-minute cron (`*/5 * 
 
 \---
 
-##### \## Screenshots
+## Screenshots
 
 
 
@@ -667,7 +667,7 @@ Firing counts are drawn from `index=\_internal sourcetype=scheduler`, filtered t
 
 \---
 
-##### \## What I'd Add With More Time
+## What I'd Add With More Time
 
 
 
@@ -697,7 +697,7 @@ Firing counts are drawn from `index=\_internal sourcetype=scheduler`, filtered t
 
 \---
 
-##### \## Tools Used
+## Tools Used
 
 \- VirtualBox (host-only networking for lab isolation)
 
@@ -721,7 +721,7 @@ Firing counts are drawn from `index=\_internal sourcetype=scheduler`, filtered t
 
 
 
-##### \## Resources Used
+## Resources Used
 
 
 
