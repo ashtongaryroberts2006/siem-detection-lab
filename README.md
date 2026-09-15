@@ -269,19 +269,28 @@ Ping results from Kali to both the Splunk server and Windows-Target, confirming 
 ![Full lab connectivity confirmed](screenshots/15-connectivity-confirmed.png)
  
 ### 16. Saved detection alerts (configuration)
-One screenshot per detection (5 total) showing the saved alert in Splunk in edit view, so the full configuration is visible - search logic (SPL), alert type, cron schedule, time range, trigger condition, throttle, and trigger action. Each alert's Description field carries its MITRE ATT&CK ID.
+One screenshot per detection (six total) showing the saved alert in Splunk in edit view, so the full configuration is visible - search logic (SPL), alert type, cron schedule, time range, trigger condition, throttle, and trigger action. Each alert's Description field carries its MITRE ATT&CK ID. Every detection runs on a 5-minute cron (`*/5 * * * *`) against a `-5m@m` to `@m` window, with a 60-minute throttle (suppression) to prevent the same events re-alerting on every run.
  
+#### Repeated Failed Logons - T1110
 ![Detection alert - failed logons](screenshots/16a-alert-failed-logons.png)
+ 
+#### Suspicious PowerShell (Encoded Command) - T1059.001
 ![Detection alert - encoded PowerShell](screenshots/16b-alert-powershell.png)
+ 
+#### Persistence via Scheduled Task - T1053.005
 ![Detection alert - scheduled task persistence](screenshots/16c-alert-persistence.png)
+ 
+#### Suspicious Process Spawn (cmd to PowerShell) - T1059
 ![Detection alert - suspicious process spawn](screenshots/16d-alert-process-spawn.png)
+ 
+#### Lateral Movement (SMB Admin Share Access) - T1021.002
 ![Detection alert - lateral movement](screenshots/16e-alert-lateral-movement.png)
+ 
+#### Windows Security Log Cleared - T1070.001
 ![Detection alert - Security log cleared](screenshots/16g-alert-logcleared.png)
  
-Each detection runs on a 5-minute cron (`*/5 * * * *`) against a `-5m@m` to `@m` window, with a 60-minute throttle (suppression) to prevent the same events re-alerting on every run.
- 
-**16f. Fired-event history**
-Activity > Triggered Alerts, showing recorded firings across the five detections - evidence that the alerts have actually triggered on live events, not just that they exist.
+#### Fired-event history
+Activity > Triggered Alerts, showing recorded firings across the detections - evidence that the alerts have actually triggered on live events, not just that they exist.
 ![Triggered alerts history](screenshots/16f-triggered-alerts.png)
  
 ### 17. Detection validation (attack → detection)
