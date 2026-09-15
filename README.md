@@ -219,8 +219,8 @@ Each detection is saved as a scheduled alert running on a 5-minute cron (`*/5 * 
 - **MITRE ATT&CK technique:** T1070.001 - Indicator Removal: Clear Windows Event Logs
 - **What triggered the alert:** The Windows Security event log was cleared on Windows-Target, recorded as EventCode 1102 ("the audit log was cleared"). Clearing security logs is a common anti-forensics / defence-evasion action used by an attacker to destroy evidence of their activity after gaining access.
 - **Splunk query used:** `index=main EventCode=1102`
-- **Investigation steps taken:** Reviewed the EventCode 1102 event, confirming the host (`DESKTOP-0DO6S21`) and the account responsible for the clear. Noted that a single clear operation generates the 1102 event in the freshly-cleared log, so the act of destroying evidence itself produces a durable, forwarded record - the event reaches the Splunk indexer before local deletion matters, which is exactly why centralised log forwarding defeats this technique.
-- **Verdict:** True positive (simulated). Log clearing has almost no legitimate cause on a normal endpoint, making 1102 a high-fidelity, low-noise detection. In a live environment this would be treated as high priority: an attacker clearing logs implies they already have administrative access and are actively covering their tracks, so the response would be to preserve the forwarded copy of the logs (which the SIEM already holds), isolate the host, and reconstruct the pre-clear activity from the centrally-stored events rather than the now-wiped local log.
+- **Investigation steps taken:** Reviewed the EventCode 1102 event, confirming the host (`DESKTOP-0DO6S21`) and the account responsible for the clear. Noted that the act of clearing the log itself generates the 1102 event, so destroying local evidence still produces a durable, forwarded record - the event reaches the Splunk indexer regardless of the local log being wiped, which is exactly why centralised log forwarding defeats this technique.
+- **Verdict:** True positive (simulated). Log clearing has almost no legitimate cause on a normal endpoint, making 1102 a high-fidelity, low-noise detection. In a live environment this would be high priority: an attacker clearing logs implies they already have administrative access and are actively covering their tracks, so the response would be to preserve the SIEM's forwarded copy of the logs, isolate the host, and reconstruct the pre-clear activity from the centrally-stored events rather than the now-wiped local log.
 
 ## Screenshots
 
@@ -331,7 +331,7 @@ Access to administrative shares (`C$`, `ADMIN$`) over SMB from Kali, generating 
 ![Attack - lateral movement](screenshots/17e-attack-lateral-movement.png)
 ![Detection - lateral movement](screenshots/17e-detection-lateral-movement.png)
 
-**17f. Defence Evasion - Windows Security Log Cleared** — `T1070.001` Clear Windows Event Logs
+**17f. Defence Evasion - Windows Security Log Cleared** - `T1070.001` Clear Windows Event Logs
 Clearing of the Security event log via `wevtutil cl Security`, generating EventCode 1102.
 ![Attack - log cleared](screenshots/17f-attack-logcleared.png)
 ![Detection - log cleared](screenshots/17f-detection-logcleared.png)
