@@ -163,6 +163,7 @@ The detections were chosen deliberately to span different stages of the attack l
 | Persistence | T1053.005 | Scheduled task creation | Security (4698) | `index=main EventCode=4698` |
 | Execution / Defense Evasion | T1059 | cmd → PowerShell process lineage | Sysmon (EID 1) | `index=main EventCode=1 ParentImage="*cmd.exe*" Image="*powershell.exe*"` |
 | Lateral Movement | T1021.002 | Admin-share access over SMB | Security (5140) | `index=main EventCode=5140 (Share_Name="*ADMIN$*" OR Share_Name="*C$*")` |
+| Defense Evasion | T1070.001 | Windows Security log cleared | Security (1102) | `index=main EventCode=1102` |
 
 Each detection is saved as a scheduled alert running on a 5-minute cron (`*/5 * * * *`) against a `-5m@m` to `@m` window, with a 60-minute throttle to prevent the same events re-alerting on every run. Each alert's Description field carries its MITRE ATT&CK ID and a one-line purpose so the alert is self-documenting in the Splunk UI.
 
@@ -211,6 +212,15 @@ Each detection is saved as a scheduled alert running on a 5-minute cron (`*/5 * 
 - **Splunk query used:** `index=main EventCode=5140 (Share_Name="*ADMIN$*" OR Share_Name="*C$*")`
 - **Investigation steps taken:** Reviewed the EventCode=5140 events to confirm the share names accessed (`\\*\C$`, `\\*\ADMIN$`), the account used, and the source and destination hosts. The source and destination hosts differed (Kali → Windows-Target), confirming this was genuine cross-host access over the lab network rather than local loopback activity.
 - **Verdict:** True positive (simulated). The detection correctly identified access to administrative shares - a pattern of genuine interest to a SOC analyst, since access to `C$`/`ADMIN$` from an unexpected host is a common indicator of lateral movement or remote-execution staging. In a live multi-host environment, priority indicators to correlate would be: whether the source host is expected to be administering the target at all, whether the same source is touching admin shares across multiple hosts (suggesting spread), and whether share access is immediately followed by service creation (EventCode 7045) or remote process execution - which together would indicate a PsExec-style remote execution rather than reconnaissance alone.
+
+### Incident 6: Defence Evasion - Windows Security Log Cleared
+
+- **Date/time detected:** 15/09/2026 14:30:43.270
+- **MITRE ATT&CK technique:** T1070.001 - Indicator Removal: Clear Windows Event Logs
+- **What triggered the alert:** The Windows Security event log was cleared on Windows-Target, recorded as EventCode 1102 ("the audit log was cleared"). Clearing security logs is a common anti-forensics / defence-evasion action used by an attacker to destroy evidence of their activity after gaining access.
+- **Splunk query used:** `index=main EventCode=1102`
+- **Investigation steps taken:** Reviewed the EventCode 1102 event, confirming the host (`DESKTOP-0DO6S21`) and the account responsible for the clear. Noted that a single clear operation generates the 1102 event in the freshly-cleared log, so the act of destroying evidence itself produces a durable, forwarded record - the event reaches the Splunk indexer before local deletion matters, which is exactly why centralised log forwarding defeats this technique.
+- **Verdict:** True positive (simulated). Log clearing has almost no legitimate cause on a normal endpoint, making 1102 a high-fidelity, low-noise detection. In a live environment this would be treated as high priority: an attacker clearing logs implies they already have administrative access and are actively covering their tracks, so the response would be to preserve the forwarded copy of the logs (which the SIEM already holds), isolate the host, and reconstruct the pre-clear activity from the centrally-stored events rather than the now-wiped local log.
 
 ## Screenshots
 
@@ -283,6 +293,7 @@ One screenshot per detection (5 total) showing the saved alert in Splunk in edit
 ![Detection alert - scheduled task persistence](screenshots/16c-alert-persistence.png)
 ![Detection alert - suspicious process spawn](screenshots/16d-alert-process-spawn.png)
 ![Detection alert - lateral movement](screenshots/16e-alert-lateral-movement.png)
+![Detection alert - Security log cleared](screenshots/16g-alert-logcleared.png)
 
 Each detection runs on a 5-minute cron (`*/5 * * * *`) against a `-5m@m` to `@m` window, with a 60-minute throttle (suppression) to prevent the same events re-alerting on every run.
 
@@ -319,6 +330,11 @@ A `cmd.exe → powershell.exe` parent-child process chain captured via Sysmon Ev
 Access to administrative shares (`C$`, `ADMIN$`) over SMB from Kali, generating EventCode 5140.
 ![Attack - lateral movement](screenshots/17e-attack-lateral-movement.png)
 ![Detection - lateral movement](screenshots/17e-detection-lateral-movement.png)
+
+**17f. Defence Evasion - Windows Security Log Cleared** — `T1070.001` Clear Windows Event Logs
+Clearing of the Security event log via `wevtutil cl Security`, generating EventCode 1102.
+![Attack - log cleared](screenshots/17f-attack-logcleared.png)
+![Detection - log cleared](screenshots/17f-detection-logcleared.png)
 
 ### 18. SOC detection overview dashboard
 Splunk "SOC Detection Overview" dashboard summarising activity across all five detections.
