@@ -22,7 +22,7 @@ Built: 29/07/2026 - 17/10/2026
 This covers the full detection engineering cycle: standing up a log pipeline from Windows endpoints into Splunk, writing detections and mapping them to MITRE ATT&CK, validating each one against a simulated attack, and reasoning about false positives and how an attacker might evade each control. The build log below is the honest version, including forwarder permissions, event-channel ACLs, audit policy, alert logic, and a Splunk licence expiring halfway through, not just the finished result with the mess cleaned off.
 
 ## Skills Demonstrated
-- SIEM and detection: Splunk, SPL (search, stats, where), scheduled alerts with cron scheduling and throttling, detection tuning and false-positive reasoning
+- SIEM and detection: Splunk, SPL (search, stats, where), scheduled alerts with cron scheduling and throttling, detection tuning and false-positive reasoning (see What I'd Add With More Time for where this project's reasoning currently stops short)
 - Frameworks: MITRE ATT&CK technique mapping across the attack lifecycle
 - Telemetry: Windows Security Event Logs, Sysmon (SwiftOnSecurity config), Windows audit policy (auditpol), Splunk Universal Forwarder
 - Attack simulation: netexec (SMB), PowerShell, scheduled tasks, process-lineage abuse
@@ -152,6 +152,8 @@ Each detection runs as a scheduled alert on a 5-minute cron against a 5-minute w
 The interactive layer file is at screenshots/attack-navigator-layer.json, importable directly into ATT&CK Navigator (mitre-attack.github.io/attack-navigator) via Open Existing Layer, Upload from local.
 
 ## Incident Reports
+
+Each incident below follows the same pattern. Confirm the raw event in Splunk, check it against what normal, legitimate activity would look like, decide true or false positive, then think through what a real analyst would do next if this weren't a deliberate test.
 
 ### Incident 1: Repeated Failed Logons (T1110, Brute Force)
 - Why this one: credential brute-forcing is one of the most common initial-access patterns, and it's detectable with nothing more than default Security logging, a realistic first thing for any SOC to alert on
@@ -302,7 +304,9 @@ Three panels.
 ![Dashboard, alert firing counts by detection](screenshots/18a-dashboard-alert-counts.png)
 ![Dashboard, recent triggered alerts table](screenshots/18b-dashboard-triggered-table.png)
 ![Dashboard, failed logons by logon type](screenshots/18c-dashboard-logon-types.png)
+
 ## What I'd Add With More Time
+All six incidents here are confirmed true positives, since they were deliberately triggered test attacks. A real next step would be tuning each detection against genuine background activity on the box, to see what a false positive actually looks like for it and adjust the thresholds accordingly.
 - A second Windows target, to show the full lateral movement chain (remote service creation followed by PsExec-style execution) instead of just share access
 - An NTP setup for the lab network, to stop the clock drift that caused confusing false negatives
 - A honeypot feeding into the same Splunk instance, for genuine unsolicited attack traffic instead of only self-triggered tests
