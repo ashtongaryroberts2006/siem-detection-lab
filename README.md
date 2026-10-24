@@ -298,4 +298,39 @@ One pair per technique.
 
 17f. Security Log Cleared, T1070.001
 ![Attack, log cleared](screenshots/17f-attack-logcleared.png)
-![Detection, log
+![Detection, log cleared](screenshots/17f-detection-logcleared.png)
+
+### 18. SOC detection overview dashboard
+Three panels.
+![Dashboard, alert firing counts by detection](screenshots/18a-dashboard-alert-counts.png)
+![Dashboard, recent triggered alerts table](screenshots/18b-dashboard-triggered-table.png)
+![Dashboard, failed logons by logon type](screenshots/18c-dashboard-logon-types.png)
+
+## What I'd Add With More Time
+All six incidents here are confirmed true positives, since they were deliberately triggered test attacks. A real next step would be tuning each detection against genuine background activity on the box, to see what a false positive actually looks like for it and adjust the thresholds accordingly.
+- A second Windows target, to show the full lateral movement chain (remote service creation followed by PsExec-style execution) instead of just share access
+- An NTP setup for the lab network, to stop the clock drift that caused confusing false negatives
+- A honeypot feeding into the same Splunk instance, for genuine unsolicited attack traffic instead of only self-triggered tests
+- A post-install script to reapply the recurring ownership fix automatically
+- Broader detection coverage: credential dumping (T1003), defense evasion (T1562), exfiltration, mapped against a wider Navigator layer
+- Some SOAR-style automation, so alerts trigger a response rather than only landing in a list for manual review
+
+## Tools Used
+- VirtualBox, host-only networking
+- Ubuntu Server 26.04 LTS, Splunk host
+- Splunk Enterprise 10.4.1
+- Splunk Universal Forwarder
+- Sysmon (SwiftOnSecurity config)
+- SSH
+- Windows 10 (Windows-Target VM)
+- Kali Linux (attacker VM)
+- netexec, SMB attack simulation
+- Manual attack simulation on Windows-Target
+- MITRE ATT&CK Navigator
+
+## Resources Used
+- MITRE ATT&CK Framework, attack.mitre.org
+- Sysmon configuration, SwiftOnSecurity, github.com/SwiftOnSecurity/sysmon-config
+- netexec, github.com/Pennyw0rth/NetExec
+- Splunk Enterprise and Universal Forwarder documentation, docs.splunk.com
+- MITRE ATT&CK Navigator, mitre-attack.github.io/attack-navigator
