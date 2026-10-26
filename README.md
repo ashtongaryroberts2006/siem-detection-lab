@@ -150,7 +150,7 @@ Note: T1070.001, Clear Windows Event Logs, has been renumbered to T1685.005 in c
 
 Each detection runs as a scheduled alert on a 5-minute cron against a 5-minute window, with a 60-minute throttle so the same events don't re-alert every run. Each alert's description carries its MITRE ATT&CK ID.
 
-![MITRE ATT&CK Navigator coverage](screenshots/attack-navigator.png)
+![MITRE ATT&CK Navigator coverage](screenshots/attacker-navigator.png)
 
 The interactive layer file is at screenshots/attack-navigator-layer.json, and it's importable directly into ATT&CK Navigator (mitre-attack.github.io/attack-navigator) via Open Existing Layer, Upload from local.
 
