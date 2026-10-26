@@ -146,6 +146,8 @@ Chosen to span different stages of the attack lifecycle rather than clustering o
 | Lateral Movement | T1021.002 | Admin-share access over SMB | Security (5140) |
 | Defense Evasion | T1070.001 | Windows Security log cleared | Security (1102) |
 
+Note: T1070.001, Clear Windows Event Logs, has been renumbered to T1685.005 in current versions of the ATT&CK framework. This README uses T1070.001 throughout, since it's still the more widely recognised ID, but the Navigator layer file reflects the current framework version and will show it as T1685.005.
+
 Each detection runs as a scheduled alert on a 5-minute cron against a 5-minute window, with a 60-minute throttle so the same events don't re-alert every run. Each alert's description carries its MITRE ATT&CK ID.
 
 ![MITRE ATT&CK Navigator coverage](screenshots/attack-navigator.png)
